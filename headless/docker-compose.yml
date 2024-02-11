@@ -1,0 +1,19 @@
+version: "3.3"
+services:
+  resonite:
+    build: .build
+    container_name: resonite
+    environment:
+      # USE_CRYSTITE: "true"
+      RUN_AS: "1000"
+    env_file:
+      - ./steamcred.env
+    network_mode: host
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./data:/data
+      - ./data/crystite/cache/:/var/lib/crystite/data/Cache/
+      - ./data/crystite/data/:/var/lib/crystite/data/Data/
+      - ./data/crystite/config:/etc/crystite:rw
+      - ./data/headless:/var/lib/crystite/Resonite:rw
