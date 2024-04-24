@@ -1,6 +1,6 @@
 {
     "$schema": "https://raw.githubusercontent.com/Yellow-Dog-Man/JSONSchemas/main/schemas/HeadlessConfig.schema.json",
-    "comment": "This is the default Crystite Configuration file.",
+    "comment": "This is the default Configuration file.",
     "dataFolder": "/data/crystite/data",
     "cacheFolder": "/data/crystite/cache",
     "startWorlds": [

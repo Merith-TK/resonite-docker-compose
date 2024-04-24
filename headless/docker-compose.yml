@@ -23,13 +23,13 @@ services:
     ## EDIT THESE ENVIRONMENT VARIABLES ##
     environment:
       ## STEAM OPTIONS ##
-      DISABLE_STEAMCMD: false  # disable steamcmd
+      DISABLE_STEAMCMD: true  # disable steamcmd
         # disables the steamcmd updater, useful for when you want to use a custom
         # version of the game, or when you want to use the crystite software as updates
         # to the headless software are not always compatible with the crystite software
 
       ## CRYSTITE OPTIONS ##
-      USE_CRYSTITE: false  # use crystite instead of the headless software
+      USE_CRYSTITE: true  # use crystite instead of the headless software
         # crystite modifies the base game so an headless server can be run
         # without the need for an STEAM_BETA key
         # To use mods: https://github.com/Nihlus/Crystite?tab=readme-ov-file#mods
@@ -53,7 +53,7 @@ services:
         # this is the UID of the user that the container will run as
         # if empty, run as root
 
-      STOP_LAUNCH: false
+      # STOP_LAUNCH: true
     env_file:
       - ./steamcred.env
       #  STEAM_USER, STEAM_PASS, STEAM_AUTH, STEAM_BETA

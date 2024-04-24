@@ -23,7 +23,8 @@ RUN apt update && apt upgrade -y \
         curl \
         wget \
         screen \
-        sudo
+        sudo \
+        jq
 
 # Install Mono
 RUN export GNUPGHOME=$(mktemp -d) \
