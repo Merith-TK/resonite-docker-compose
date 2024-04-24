@@ -39,9 +39,8 @@ RUN apt update && apt upgrade -y \
 RUN mkdir -p /data/headless /data/steamcmd
 VOLUME [ "/etc/crystite", "/data/headless", "/data/steamcmd", "/data/home" ]
 
-COPY setup.sh /setup.sh
-COPY start_script.sh /start_script.sh
-COPY mods_script.sh /mods_script.sh
-RUN chmod +x /setup.sh /start_script.sh /mods_script.sh
-ENTRYPOINT ["/setup.sh"]
+COPY crystite /mnt/crystite
+COPY scripts /scripts
+RUN chmod +x /scripts/*
+ENTRYPOINT ["/scripts/setup.sh"]
 

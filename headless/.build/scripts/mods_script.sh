@@ -39,6 +39,7 @@ for file_url in "${file_urls[@]}"; do
 done
 
 # Download additional files from a list of URLs to /data/headless/Headless/rml_mods
+# shellcheck disable=SC2153
 IFS=',' read -r -a mod_urls <<< "$MOD_URLS"
 for url in "${mod_urls[@]}"; do
     destination="/data/headless/Headless/rml_mods/$(basename "$url")"
