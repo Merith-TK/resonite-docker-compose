@@ -37,7 +37,7 @@ services:
       ## RESONITE OPTIONS ##
       # Does not apply if USE_CRYSTITE is true
       RESONITE_ARGS: ""     # https://wiki.resonite.com/Command_Line_Arguments
-      RESONITE_MOD_LOADER: "true"  # Enable RML https://wiki.resonite.com/Mods
+      RESONITE_MOD_LOADER: false  # Enable RML https://wiki.resonite.com/Mods
       MOD_URLS: "https://github.com/New-Project-Final-Final-WIP/HeadlessTweaks/releases/latest/download/HeadlessTweaks.dll"  # URLs to download mods from
         # a comma separated list of URLs to download mods from
         # must be the URL to the dll file

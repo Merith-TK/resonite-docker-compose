@@ -26,8 +26,20 @@ echo "{ \"Resonite\": $CONFIG_DATA }" | jq '.' > /etc/crystite/conf.d/_generated
 if [ "$RESONITE_MOD_LOADER" == "true" ]; then
     echo  "Setting up Modloader Configs" 
     echo "{\"Resonite\": {\"pluginAssemblies\": [\"/data/headless/Headless/Libraries/ResoniteModLoader.dll\"]}}" | jq '.' > /etc/crystite/conf.d/_generated_rml.json
-    DEFAULT_RESONITE_ARGS="$DEFAULT_RESONITE_ARGS -LoadAssembly Libraries/ResoniteModLoader.dll"
+    DEFAULT_RESONITE_ARGS="$DEFAULT_RESONITE_ARGS -LoadAssembly /data/headless/Headless/Libraries/ResoniteModLoader.dll"
 else
     echo  "Modloader is disabled"
     rm -f /etc/crystite/conf.d/_generated_rml.json
 fi
+
+## fix DEFAULT_RESONITE_ARGS to not be merged
+echo "Setting up Resonite Args"
+## split args by space
+IFS=' ' read -r -a DEFAULT_RESONITE_ARGS <<< "$DEFAULT_RESONITE_ARGS"
+for i in "${DEFAULT_RESONITE_ARGS[@]}"
+do
+    echo "Adding arg: $i"
+    ARGS="$ARGS $i"
+done
+DEFAULT_RESONITE_ARGS=$ARGS
+echo Final Args: $DEFAULT_RESONITE_ARGS
