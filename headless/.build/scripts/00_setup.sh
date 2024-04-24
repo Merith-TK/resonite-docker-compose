@@ -1,17 +1,17 @@
 #!/bin/bash
-
+## Set default env
 if [ ! -n "$COMMAND" ]; then
-    COMMAND="/scripts/start_script.sh"
+    COMMAND="/scripts/99_start.sh"
+fi
+if [ ! -n "$CONFIG_FILE" ]; then
+    CONFIG_FILE="/data/config.json"
 fi
 
-mkdir -p /data/home /data/headless /data/steamcmd /etc/crystite
+mkdir -p /data/home /data/headless /data/steamcmd /etc/crystite/conf.d
 ##  Have to do this here, as otherwise stuff doesnt work for some reason
-if  [ ! -f "/etc/crystite/appsettings.json" ]; then
-    echo "No appsettings.json found, copying from backup"
-    cp /mnt/crystite/appsettings.json /etc/crystite/appsettings.json
-else
-    echo "appsettings.json found, skipping copy"
-fi
+/scripts/01_install.sh
+/scripts/02_setup_config.sh
+/scripts/03_download_mods.sh
 if [ "$RUN_AS" != "" ]; then
     echo "Running as $RUN_AS"
     USER_ID=$(echo $RUN_AS | cut -d: -f1)

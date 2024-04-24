@@ -23,13 +23,13 @@ services:
     ## EDIT THESE ENVIRONMENT VARIABLES ##
     environment:
       ## STEAM OPTIONS ##
-      DISABLE_STEAMCMD: "false"  # disable steamcmd
+      DISABLE_STEAMCMD: false  # disable steamcmd
         # disables the steamcmd updater, useful for when you want to use a custom
         # version of the game, or when you want to use the crystite software as updates
         # to the headless software are not always compatible with the crystite software
 
       ## CRYSTITE OPTIONS ##
-      USE_CRYSTITE: true  # use crystite instead of the headless software
+      USE_CRYSTITE: false  # use crystite instead of the headless software
         # crystite modifies the base game so an headless server can be run
         # without the need for an STEAM_BETA key
         # To use mods: https://github.com/Nihlus/Crystite?tab=readme-ov-file#mods
@@ -37,19 +37,23 @@ services:
       ## RESONITE OPTIONS ##
       # Does not apply if USE_CRYSTITE is true
       RESONITE_ARGS: ""     # https://wiki.resonite.com/Command_Line_Arguments
-      RESONITE_MOD_LOADER: "false"  # Enable RML https://wiki.resonite.com/Mods
-      MOD_URLS: ""  # URLs to download mods from
+      RESONITE_MOD_LOADER: "true"  # Enable RML https://wiki.resonite.com/Mods
+      MOD_URLS: "https://github.com/New-Project-Final-Final-WIP/HeadlessTweaks/releases/latest/download/HeadlessTweaks.dll"  # URLs to download mods from
         # a comma separated list of URLs to download mods from
         # must be the URL to the dll file
         # https://github.com/resonite-modding-group/resonite-mod-manifest
 
       ## ADVANCED OPTIONS ##
       # These Values are in this file as their "defaults", and are safe to remove if you don't need them
-      COMMAND: "/scripts/start_script.sh"  # command to run when the container starts
-      RUN_AS: 1001
+      CONFIG_FILE: "/data/config.json"  # path to the config file
+      COMMAND: "/scripts/99_start.sh"  # command to run when the container starts
+      
+      RUN_AS: 1000
         # you can set this automatically with `make set-user` or `fix-perms`
         # this is the UID of the user that the container will run as
         # if empty, run as root
+
+      STOP_LAUNCH: false
     env_file:
       - ./steamcred.env
       #  STEAM_USER, STEAM_PASS, STEAM_AUTH, STEAM_BETA

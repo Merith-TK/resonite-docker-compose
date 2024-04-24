@@ -10,13 +10,15 @@
 # Define file URLs and their associated positions
 file_urls=(
     "https://github.com/resonite-modding-group/ResoniteModLoader/releases/latest/download/ResoniteModLoader.dll /data/headless/Headless/Libraries/ResoniteModLoader.dll"
-    "https://github.com/resonite-modding-group/ResoniteModLoader/releases/latest/download/0Harmony.dll /data/headless/Headless/Libraries/rml_libs/0Harmony.dll"
+    "https://github.com/resonite-modding-group/ResoniteModLoader/releases/latest/download/0Harmony.dll /data/headless/Headless/rml_libs/0Harmony.dll"
 )
 
 # Function to download a file from URL to destination
 download_file() {
     local url="$1"
     local destination="$2"
+    # make sure destination directory exists
+    mkdir -p "$(dirname "$destination")"
     # Use curl to download file
     if curl -fsSL "$url" -o "$destination"; then
         echo "File downloaded successfully: $destination"
@@ -31,7 +33,6 @@ for file_url in "${file_urls[@]}"; do
     read -r url destination <<< "$file_url"
     # Backup existing file if exists
     if [ -f "$destination" ]; then
-        echo "Backing up existing file: $destination"
         mv "$destination" "${destination}.bak"
     fi
     # Download file
@@ -44,10 +45,22 @@ IFS=',' read -r -a mod_urls <<< "$MOD_URLS"
 for url in "${mod_urls[@]}"; do
     destination="/data/headless/Headless/rml_mods/$(basename "$url")"
     # Check if file already exists, if yes, skip download
-    if [ -f "$destination" ]; then
-        echo "File already exists: $destination. Skipping download."
-    else
-        # Download file
-        download_file "$url" "$destination"
+    if [ ! -f "$destination" ]; then
+       download_file "$url" "$destination"
     fi
 done
+
+# if resonte mod loader is enabled, create and link rml_mods, libs, and config
+if [ "$RESONITE_MOD_LOADER" == "true" ]; then
+    for dir in rml_mods rml_libs rml_config; do
+        if  [ -d "/data/headless/$dir" ]; then
+            continue
+        fi
+        mkdir -p "/data/headless/Headless/$dir"
+        ln -s "/data/headless/Headless/$dir" "/data/headless/$dir"
+    done
+    if [ ! -f "/data/headless/Libraries/ResoniteModLoader.dll" ]; then
+        mkdir -p "/data/headless/Libraries"
+        ln -s "/data/headless/Headless/Libraries/ResoniteModLoader.dll" "/data/headless/Libraries/ResoniteModLoader.dll"
+    fi
+fi

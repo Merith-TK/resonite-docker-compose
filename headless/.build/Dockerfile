@@ -49,5 +49,5 @@ VOLUME [ "/etc/crystite", "/data/headless", "/data/steamcmd", "/data/home" ]
 COPY crystite /mnt/crystite
 COPY scripts /scripts
 RUN chmod +x /scripts/*
-ENTRYPOINT ["/scripts/setup.sh"]
+ENTRYPOINT ["/scripts/00_setup.sh"]
 

@@ -1,0 +1,19 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Yellow-Dog-Man/JSONSchemas/main/schemas/HeadlessConfig.schema.json",
+    "comment": "This is the default Crystite Configuration file.",
+    "dataFolder": "/data/crystite/data",
+    "cacheFolder": "/data/crystite/cache",
+    "startWorlds": [
+        {
+            "sessionName": "Docker Headless",
+            "hideFromPublicListing": false,
+            "isEnabled": true,
+            "maxUsers": 32,
+            "accessLevel": "Anyone",
+            "defaultFriendRole": "Builder",
+            "defaultAnonymousRole": "Builder",
+            "defaultVisitorRole": "Builder",
+            "loadWorldPresetName": "Grid"
+        }
+    ]
+}
