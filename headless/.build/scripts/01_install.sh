@@ -10,7 +10,6 @@ if [ "$DISABLE_STEAMCMD" != "true" ]; then
     if [ -z "$STEAM_BETA" ] || [ "$STEAM_BETA" == "beta_access_key" ]; then
         echo "Downloading Resonite"
         /data/steamcmd/steamcmd.sh +login anonymous +force_install_dir /data/resonite +app_update 2519830 +quit
-        USE_CRYSTITE="true"
     else
         echo "Downloading Resonite Headless"
         /data/steamcmd/steamcmd.sh +login ${STEAM_USER} ${STEAM_PASS} ${STEAM_AUTH} +force_install_dir /data/resonite +app_update 2519830 -beta headless -betapassword ${STEAM_BETA} +quit
@@ -21,6 +20,7 @@ fi
 if [ "$USE_CRYSTITE" != "true" ]; then
     if [ ! -f "/data/resonite/Headless/Resonite.exe" ]; then
         echo "Headless/Resonite.exe not found!"
-        exit 1
+        echo "Forcing use of Crystite"
+        USE_CRYSTITE="true"
     fi
 fi
