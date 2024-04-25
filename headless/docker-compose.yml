@@ -10,50 +10,50 @@ services:
       - ./data:/data:rw
       # have volume entires in dockerfile, if removed this data will persist
       # until the volume is removed
-      - ./data/headless:/data/headless:rw
-      - ./data/home:/data/home:rw
+      - ./data/resonite:/data/resonite:rw
       - ./data/steamcmd:/data/steamcmd:rw
 
       # crystite data
-      - ./data/crystite/config:/etc/crystite:rw
+      - ./data/config/crystite/:/etc/crystite:rw
 
     # mount scripts for runtime, 
       - .build/scripts:/scripts:ro
+      - .build/crystite:/mnt/crystite:ro
 
     ## EDIT THESE ENVIRONMENT VARIABLES ##
     environment:
-      ## STEAM OPTIONS ##
-      DISABLE_STEAMCMD: true  # disable steamcmd
-        # disables the steamcmd updater, useful for when you want to use a custom
-        # version of the game, or when you want to use the crystite software as updates
-        # to the headless software are not always compatible with the crystite software
-
-      ## CRYSTITE OPTIONS ##
-      USE_CRYSTITE: true  # use crystite instead of the headless software
-        # crystite modifies the base game so an headless server can be run
-        # without the need for an STEAM_BETA key
-        # To use mods: https://github.com/Nihlus/Crystite?tab=readme-ov-file#mods
-
-      ## RESONITE OPTIONS ##
-      # Does not apply if USE_CRYSTITE is true
-      RESONITE_ARGS: ""     # https://wiki.resonite.com/Command_Line_Arguments
-      RESONITE_MOD_LOADER: false  # Enable RML https://wiki.resonite.com/Mods
-      MOD_URLS: "https://github.com/New-Project-Final-Final-WIP/HeadlessTweaks/releases/latest/download/HeadlessTweaks.dll"  # URLs to download mods from
-        # a comma separated list of URLs to download mods from
-        # must be the URL to the dll file
-        # https://github.com/resonite-modding-group/resonite-mod-manifest
-
-      ## ADVANCED OPTIONS ##
-      # These Values are in this file as their "defaults", and are safe to remove if you don't need them
-      CONFIG_FILE: "/data/config.json"  # path to the config file
-      COMMAND: "/scripts/99_start.sh"  # command to run when the container starts
-      
+      # DO NOT REMOVE THIS VALUE
       RUN_AS: 1000
-        # you can set this automatically with `make set-user` or `fix-perms`
-        # this is the UID of the user that the container will run as
-        # if empty, run as root
+      # THIS CONTROLS THE USER ID THAT THE SERVER RUNS AS
+      # This is specifically so *you* have control over the files]
+      
+      ## Options ## 
+      ## These have their defualts set in the Dockerfile, and are safe to remove from this file
+      
+      # Prevents SteamCMD from updating the gamefiles
+      DISABLE_STEAMCMD: "false"
 
-      # STOP_LAUNCH: true
+      # Wether to use crystite or not.
+      # if no STEAM_BETA key is provided, this is force set to true
+      USE_CRYSTITE: "false"
+
+      # Where to located the config file, defaults to /data/Config.json
+      # if config file does not exist, it will generate a template one at that location
+      CONFIG_FILE: "/data/Config.json"
+
+      # overrides the command used to start the server, defaults to /scripts/99_start.sh
+      COMMAND: "/scripts/99_start.sh"
+
+      # Wether to enable the Resonite Mod Loader
+      # Crystite Support is expiremental at best.
+      RESONITE_MOD_LOADER: false
+      # list of mods to load, seperated by commas
+      MOD_URLS: ""
+
+      # Does not allow the server to start, helpful for debugging the container as a whole
+      STOP_LAUNCH: false
+
     env_file:
+      # Intended location for steam credentials
       - ./steamcred.env
       #  STEAM_USER, STEAM_PASS, STEAM_AUTH, STEAM_BETA

@@ -44,8 +44,18 @@ RUN echo 'deb [signed-by=/usr/share/keyrings/algiz.gpg] https://repo.algiz.nu/cr
     && apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install -y crystite
 
 # make data directories
-RUN mkdir -p /data/headless /data/steamcmd
-VOLUME [ "/etc/crystite", "/data/headless", "/data/steamcmd", "/data/home" ]
+RUN mkdir -p /data/resonite /data/steamcmd
+VOLUME [ "/etc/crystite", "/data/resonite", "/data/steamcmd", "/data/home" ]
+
+# DEFAULT ENVS
+ENV DISABLE_STEAMCMD=false
+ENV USE_CRYSTITE=false
+ENV CONFIG_FILE="/data/Config.json"
+ENV COMMAND="/scripts/99_start.sh"
+ENV RESONITE_ARGS=""
+ENV RESONITE_MOD_LOADER=false
+ENV MOD_URLS=""
+ENV STOP_LAUNCH=false
 
 COPY crystite /mnt/crystite
 COPY scripts /scripts

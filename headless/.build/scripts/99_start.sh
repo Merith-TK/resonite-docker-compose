@@ -5,12 +5,14 @@ if [ "$STOP_LAUNCH" == "true" ]; then
     exit 0
 fi
 
-# Check if Crystite is enabled 
+# Check if Crystite is enabled
 if [ "$USE_CRYSTITE" == "true" ]; then
     echo "Running Crystite"
+    echo "exec: /usr/lib/crystite/crystite"
     /usr/lib/crystite/crystite
 else 
-    cd /data/headless/Headless || exit
+    cd /data/resonite/Headless || exit
     echo "Running Resonite"
+    echo "exec: mono Resonite.exe $DEFAULT_RESONITE_ARGS $RESONITE_ARGS"
     mono Resonite.exe $DEFAULT_RESONITE_ARGS $RESONITE_ARGS
 fi
