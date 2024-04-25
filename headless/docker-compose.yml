@@ -10,13 +10,11 @@ services:
       - ./data:/data:rw
       # have volume entires in dockerfile, if removed this data will persist
       # until the volume is removed
+      - ./data/crystite/:/etc/crystite:rw
       - ./data/resonite:/data/resonite:rw
       - ./data/steamcmd:/data/steamcmd:rw
 
-      # crystite data
-      - ./data/config/crystite/:/etc/crystite:rw
-
-    # mount scripts for runtime, 
+    # mount scripts for runtime, optional
       - .build/scripts:/scripts:ro
       - .build/crystite:/mnt/crystite:ro
 
