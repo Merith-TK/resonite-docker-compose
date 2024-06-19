@@ -44,10 +44,12 @@ services:
 
       # Wether to enable the Resonite Mod Loader
       # Crystite Support is expiremental at best.
-      RESONITE_MOD_LOADER: false
-      # list of mods to load, seperated by commas
-      MOD_URLS: ""
-
+      RESONITE_MOD_LOADER: true
+      # list of mods to load,
+      MOD_URLS: |
+        https://github.com/New-Project-Final-Final-WIP/HeadlessTweaks/releases/latest/download/HeadlessTweaks.dll
+        https://github.com/Raidriar796/StresslessHeadless/releases/latest/download/StresslessHeadless.dll
+        
       # Does not allow the server to start, helpful for debugging the container as a whole
       STOP_LAUNCH: false
 

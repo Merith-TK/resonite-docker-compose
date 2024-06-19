@@ -32,8 +32,8 @@ if [ "$RUN_AS" != "" ]; then
 
     groupadd -g $GROUP_ID user
     useradd -l -u $USER_ID -g $GROUP_ID user -d /home/user
-    cd /home/user || exit
-    export HOME=/home/user
+
+    export HOME="/home/user"
     chown $USER_ID:$GROUP_ID /data -R
     chown $USER_ID:$GROUP_ID /etc/crystite -R
 

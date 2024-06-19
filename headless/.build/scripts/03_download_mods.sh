@@ -41,12 +41,12 @@ done
 
 # Download additional files from a list of URLs to /data/resonite/Headless/rml_mods
 # shellcheck disable=SC2153
-IFS=',' read -r -a mod_urls <<< "$MOD_URLS"
-for url in "${mod_urls[@]}"; do
+for url in $MOD_URLS ; do
     destination="/data/resonite/Headless/rml_mods/$(basename "$url")"
     # Check if file already exists, if yes, skip download
     if [ ! -f "$destination" ]; then
-       download_file "$url" "$destination"
+        echo "Downloading mod: $url"
+        download_file "$url" "$destination"
     fi
 done
 

@@ -24,6 +24,7 @@ RUN apt update && apt upgrade -y \
         wget \
         screen \
         sudo \
+    	youtube-dl \
         jq
 
 # Install Mono

@@ -12,7 +12,7 @@ if [ "$DISABLE_STEAMCMD" != "true" ]; then
         /data/steamcmd/steamcmd.sh +login anonymous +force_install_dir /data/resonite +app_update 2519830 +quit
     else
         echo "Downloading Resonite Headless"
-        /data/steamcmd/steamcmd.sh +login ${STEAM_USER} ${STEAM_PASS} ${STEAM_AUTH} +force_install_dir /data/resonite +app_update 2519830 -beta headless -betapassword ${STEAM_BETA} +quit
+        /data/steamcmd/steamcmd.sh +login ${STEAM_USER} ${STEAM_PASS} ${STEAM_AUTH} +force_install_dir /data/resonite +app_update 2519830 -beta headless -betapassword ${STEAM_BETA} validate +quit
     fi
 fi
 
